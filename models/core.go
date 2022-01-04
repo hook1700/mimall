@@ -10,7 +10,6 @@ import (
 var DB *gorm.DB
 var err error
 
-
 func init() {
 	mysqladmin := beego.AppConfig.String("mysqladmin")
 	mysqlpwd := beego.AppConfig.String("mysqlpwd")
@@ -20,4 +19,6 @@ func init() {
 	if err != nil {
 		beego.Error(err)
 	}
+	DB.LogMode(true)
+
 }

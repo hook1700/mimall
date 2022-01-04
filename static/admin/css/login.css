@@ -78,3 +78,15 @@ body {
 	font-weight:bold;
 	
 }
+/*验证码css*/
+#verify,#captcha{	
+	height:30px;
+	line-height:30px;	  
+    width: 90px;
+	margin-right:3px;
+}
+#verify_img,.captcha-img{
+	cursor:pointer;
+    position: relative;
+    top:14px;
+}

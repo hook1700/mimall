@@ -1,20 +1,41 @@
-<ul class="aside">         		
+<ul class="aside">
+
+    {{$isSuper := .isSuper}}
+
+
+    {{range $key,$value := .accessList}}
+
+    {{if eq $isSuper 1}}
     <li>
-        <h4>管理员管理</h4>
-        
+        <h4>{{$value.ModuleName}}</h4>
+
         <ul>
-            <li  class="list-group-item"> <a target="rightMain" href="/admin/manager"> 管理员列表</a></li>
-            
-            <li class="list-group-item"> <a target="rightMain" href="/admin/manager/add">增加管理员</a></li>
+            {{range $k,$v := $value.AccessItem}}
+            {{if eq $v.Type 2}}
+            <li  class="list-group-item"> <a target="rightMain" href="/{{config "String" "adminPath" ""}}{{$v.Url}}">{{$v.ActionName}}</a></li>
+            {{end}}
+            {{end}}
         </ul>
     </li>
+    {{else}}
+    {{if eq  $value.Checked true}}
     <li>
-        <h4>分类管理</h4>
+        <h4>{{$value.ModuleName}}</h4>
+
         <ul>
-            <li  class="list-group-item"> <a href="/"> 商品分类列表</a></li>
-            
-            <li class="list-group-item"> <a href="/add" >增加商品分类</a></li>
+            {{range $k,$v := $value.AccessItem}}
+            {{if eq $v.Checked true}}
+            {{if eq $v.Type 2}}
+            <li  class="list-group-item"> <a target="rightMain" href="/{{config "String" "adminPath" ""}}{{$v.Url}}">{{$v.ActionName}}</a></li>
+            {{end}}
+            {{end}}
+            {{end}}
         </ul>
     </li>
-    
+    {{end}}
+    {{end}}
+
+    {{end}}
+
+
 </ul>		

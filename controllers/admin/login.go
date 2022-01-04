@@ -1,7 +1,6 @@
 package admin
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/cache"
 	"github.com/astaxie/beego/utils/captcha"
 	"mimall/models"
@@ -10,8 +9,7 @@ import (
 
 var cpt *captcha.Captcha
 
-func init()  {
-	// use beego cache system store the captcha data
+func init() {
 	store := cache.NewMemoryCache()
 	cpt = captcha.NewWithFilter("/captcha/", store)
 	cpt.ChallengeNums = 4
@@ -25,12 +23,9 @@ type LoginController struct {
 
 func (c *LoginController) Get() {
 	//获取user表的数据验证数据库是否连接成功
-	user := []models.User{}
-	models.DB.Find(&user)
-	beego.Info(user)
+
 	c.TplName = "admin/login/login.html"
 }
-
 
 func (c *LoginController) DoLogin() {
 
@@ -46,12 +41,22 @@ func (c *LoginController) DoLogin() {
 		if len(manager) > 0 {
 			//登录成功 1、保存用户信息  2、跳转到后台管理系统
 			c.SetSession("userinfo", manager[0])
-			c.Success("登录成功", "/admin")
+
+			c.Success("登录成功", "/")
 		} else {
-			c.Error("用户名获取密码错误", "/admin/login")
+			c.Error("用户名获取密码错误", "/login")
 		}
 
 	} else {
-		c.Error("验证码错误", "/admin/login")
+		c.Error("验证码错误", "/login")
 	}
 }
+
+func (c *LoginController) LoginOut() {
+
+	c.DelSession("userinfo")
+
+	c.Success("退出登录成功", "/login")
+}
+
+
