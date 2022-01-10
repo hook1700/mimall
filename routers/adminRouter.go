@@ -66,6 +66,14 @@ func init() {
 			beego.NSRouter("/goodsCate/doAdd", &admin.GoodsCateController{}, `post:DoAdd`),
 			beego.NSRouter("/goodsCate/doEdit", &admin.GoodsCateController{}, `post:DoEdit`),
 			beego.NSRouter("/goodsCate/delete", &admin.GoodsCateController{}, `get:Delete`),
+
+			//商品类型管理
+			beego.NSRouter("/goodsType", &admin.GoodsTypeController{}),
+			beego.NSRouter("/goodsType/add", &admin.GoodsTypeController{}, `get:Add`),
+			beego.NSRouter("/goodsType/edit", &admin.GoodsTypeController{}, `get:Edit`),
+			beego.NSRouter("/goodsType/doAdd", &admin.GoodsTypeController{}, `post:DoAdd`),
+			beego.NSRouter("/goodsType/doEdit", &admin.GoodsTypeController{}, `post:DoEdit`),
+			beego.NSRouter("/goodsType/delete", &admin.GoodsTypeController{}, `get:Delete`),
 		)
 	//注册 namespace
 	beego.AddNamespace(ns)
