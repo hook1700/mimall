@@ -33,11 +33,11 @@ func (c *LoginController) DoLogin() {
 	var flag = cpt.VerifyReq(c.Ctx.Request)
 	if flag {
 		//2、获取表单传过来的用户名和密码
-		username := strings.Trim(c.GetString("username"), "")
-		password := models.Md5(strings.Trim(c.GetString("password"), ""))
+		username := strings.Trim(c.GetString("username"), " ")
+		password := models.Md5(strings.Trim(c.GetString("password"), " "))
 		//3、去数据库匹配
 		manager := []models.Manager{}
-		models.DB.Where("username=? AND password=?", username, password).Find(&manager)
+		models.DB.Where("username=? AND password=? AND status=1", username, password).Find(&manager)
 		if len(manager) > 0 {
 			//登录成功 1、保存用户信息  2、跳转到后台管理系统
 			c.SetSession("userinfo", manager[0])
@@ -58,5 +58,3 @@ func (c *LoginController) LoginOut() {
 
 	c.Success("退出登录成功", "/login")
 }
-
-

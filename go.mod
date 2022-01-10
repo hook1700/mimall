@@ -3,7 +3,7 @@ module mimall
 go 1.15
 
 require (
-	github.com/astaxie/beego v1.12.3
+	github.com/astaxie/beego v1.12.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/lib/pq v1.7.0 // indirect
 	github.com/shiena/ansicolor v0.0.0-20200904210342-c7312218db18 // indirect

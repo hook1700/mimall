@@ -60,3 +60,58 @@ func (c *MainController) Welcome() {
 	c.TplName = "admin/main/welcome.html"
 }
 
+//修改公共状态
+func (c *MainController) ChangeStatus() {
+	id, err1 := c.GetInt("id")
+	if err1 != nil {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"msg":     "非法请求",
+		}
+		c.ServeJSON()
+		return
+	}
+	table := c.GetString("table")
+	field := c.GetString("field")
+	err2 := models.DB.Exec("update "+table+" set "+field+"=ABS("+field+"-1) where id=?", id).Error
+	if err2 != nil {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"msg":     "更新数据失败",
+		}
+		c.ServeJSON()
+		return
+	}
+
+	c.Data["json"] = map[string]interface{}{
+		"success": true,
+		"msg":     "更新数据成功",
+	}
+	c.ServeJSON()
+}
+
+
+//修改数量的公共方法
+func (c *MainController) EditNum() {
+	id := c.GetString("id")
+	table := c.GetString("table")
+	field := c.GetString("field")
+	num := c.GetString("num")
+
+	err := models.DB.Exec("update " + table + " set " + field + "=" + num + " where id=" + id).Error
+
+	if err != nil {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"message": "修改数量失败",
+		}
+		c.ServeJSON()
+	} else {
+		c.Data["json"] = map[string]interface{}{
+			"success": true,
+			"message": "修改数量成功",
+		}
+		c.ServeJSON()
+	}
+}
+

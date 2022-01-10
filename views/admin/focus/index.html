@@ -36,14 +36,13 @@
                     <td>{{$value.Link}}</td>
                     <td class="text-center">
 
-                                <span>
-                                    {{$value.Sort}}</span>
+                        <span class="chSpanNum" data-id="{{$value.Id}}" data-table="focus" data-field="sort" data-num="{{$value.Sort}}">{{$value.Sort}}</span>
                     </td>
                     <td align="center">
                         {{if eq $value.Status 1}}
-                        <img src="/static/admin/images/yes.gif" />
+                        <img src="/static/admin/images/yes.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="focus" data-field="status" />
                         {{else}}
-                        <img src="/static/admin/images/no.gif" />
+                        <img src="/static/admin/images/no.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="focus" data-field="status" />
                         {{end}}
                     </td>
 

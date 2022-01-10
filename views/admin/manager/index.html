@@ -14,6 +14,7 @@
                     <th>管理员邮箱</th>
                     <th>管理员角色</th>
                     <th>创建时间</th>
+                    <th>状态</th>
                     <th class="text-center">操作</th>
                 </tr>
                 </thead>
@@ -25,6 +26,15 @@
                     <td>{{$value.Email}}</td>
                     <td>{{$value.Role.Title}}</td>
                     <td>{{$value.AddTime | unixToDate}}</td>
+
+                    <td align="center">
+                        {{if eq $value.Status 1}}
+                        <img src="/static/admin/images/yes.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="manager" data-field="status" />
+                        {{else}}
+                        <img src="/static/admin/images/no.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="manager" data-field="status" />
+                        {{end}}
+                    </td>
+
 
                     <td class="text-center">
 

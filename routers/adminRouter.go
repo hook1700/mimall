@@ -14,6 +14,9 @@ func init() {
 			beego.NSBefore(middleware.AdminAuth),
 			beego.NSRouter("/", &admin.MainController{}),
 			beego.NSRouter("/welcome", &admin.MainController{}, "get:Welcome"),
+			beego.NSRouter("/main/changeStatus", &admin.MainController{}, "get:ChangeStatus"),
+			beego.NSRouter("/main/editNum", &admin.MainController{}, "get:EditNum"),
+
 
 			//登录
 			beego.NSRouter("/login", &admin.LoginController{}),
@@ -34,7 +37,7 @@ func init() {
 
 			//管理员管理
 			beego.NSRouter("/manager", &admin.ManagerController{}),
-			beego.NSRouter("/manager/add", &admin.ManagerController{}, "post:Add"),
+			beego.NSRouter("/manager/add", &admin.ManagerController{}, "get:Add"),
 			beego.NSRouter("/manager/edit", &admin.ManagerController{}, "get:Edit"),
 			beego.NSRouter("/manager/doAdd", &admin.ManagerController{}, `post:DoAdd`),
 			beego.NSRouter("/manager/doEdit", &admin.ManagerController{}, `post:DoEdit`),
@@ -55,6 +58,14 @@ func init() {
 			beego.NSRouter("/focus/doAdd", &admin.FocusController{}, `post:DoAdd`),
 			beego.NSRouter("/focus/doEdit", &admin.FocusController{}, `post:DoEdit`),
 			beego.NSRouter("/focus/delete", &admin.FocusController{}, `get:Delete`),
+
+			//商品分类管理
+			beego.NSRouter("/goodsCate", &admin.GoodsCateController{}),
+			beego.NSRouter("/goodsCate/add", &admin.GoodsCateController{}, `get:Add`),
+			beego.NSRouter("/goodsCate/edit", &admin.GoodsCateController{}, `get:Edit`),
+			beego.NSRouter("/goodsCate/doAdd", &admin.GoodsCateController{}, `post:DoAdd`),
+			beego.NSRouter("/goodsCate/doEdit", &admin.GoodsCateController{}, `post:DoEdit`),
+			beego.NSRouter("/goodsCate/delete", &admin.GoodsCateController{}, `get:Delete`),
 		)
 	//注册 namespace
 	beego.AddNamespace(ns)
