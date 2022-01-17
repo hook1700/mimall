@@ -53,7 +53,7 @@ func (c *BaseController) UploadImg(picName string) (string,error){
 		return "", err
 	}
 	//5、生成文件名称   144325235235.png
-	fileUnixName := strconv.FormatInt(models.GetUnix(), 10)
+	fileUnixName := strconv.FormatInt(models.GetUnixNano(), 10)
 	//static/upload/20200623/144325235235.png
 	saveDir := path.Join(dir, fileUnixName+extName)
 	//6、保存图片

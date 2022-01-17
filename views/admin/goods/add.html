@@ -1,7 +1,17 @@
 {{template "../public/page_header.html"}}
+<!-- 加载富文本编辑器 -->
 <link href="/static/admin/wysiwyg-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/static/admin/wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
 <script type="text/javascript" src="/static/admin/wysiwyg-editor/js/zh_cn.js"></script>
+
+<!-- 批量上传图片 -->
+<link rel="stylesheet" type="text/css" href="/static/admin/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/diyUpload/css/diyUpload.css">
+<script type="text/javascript" src="/static/admin/diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="/static/admin/diyUpload/js/diyUpload.js"></script>
+
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="panel panel-default">
@@ -40,7 +50,7 @@
                                         {{end}}
                                     </select>
                                 </li>
-                                <li> <span> 商品图片:</span> <input type="file" name="pic"/></li>
+                                <li> <span> 商品图片:</span> <input type="file" name="goods_img"/></li>
                                 <li>  <span>商品价格:</span> <input type="text" name="price"/></li>
                                 <li>  <span>商品原价:</span>  <input type="text" name="market_price"/></li>
 
@@ -57,7 +67,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="detail">
 
-                            <textarea name="content" id="content" cols="100" rows="8"></textarea>
+                            <textarea name="goods_content" id="content" cols="100" rows="8"></textarea>
 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="mix">
@@ -125,17 +135,19 @@
                             <ul class="form_input" id="goods_type_attribute">
 
 
-
                             </ul>
 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="photo">
 
-                            商品相册
+                            <div id="photoUploader" ></div>
+                            <div class="photoList" id="photoList">
+
+                            </div>
                         </div>
+
+
                     </div>
-
-
 
                     <button type="submit" class="btn btn-success goods_content_btn">提交</button>
 
@@ -149,15 +161,13 @@
     </div>
 </div>
 <script>
-    // new FroalaEditor('textarea');
-
-
+    //配置富文本编辑器
     new FroalaEditor('#content', {
         height: 200,
         language: 'zh_cn',
         imageUploadURL: '/{{config "String" "adminPath" ""}}/goods/doUpload'
     });
-
+    //动态生成商品规格参数
     $(function(){
 
         $("#goods_type_id").change(function(){
@@ -189,6 +199,22 @@
                 }
             })
         })
+    })
+
+    //批量上传图片
+    $(function(){
+        $('#photoUploader').diyUpload({
+            url: '/{{config "String" "adminPath" ""}}/goods/doUpload',
+            success:function( response ) {
+                console.info( response );
+                var photoStr='<input type="hidden" name="goods_image_list" value='+response.link+' />';
+                $("#photoList").append(photoStr)
+            },
+            error:function( err ) {
+                console.info( err );
+            }
+        });
+
     })
 
 </script>

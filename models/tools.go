@@ -29,6 +29,12 @@ func DateToUnix(str string) int64 {
 func GetUnix() int64 {
 	return time.Now().Unix()
 }
+
+//GetUnixNano 获取纳秒
+func GetUnixNano() int64 {
+	return time.Now().UnixNano()
+}
+
 func GetDate() string {
 	template := "2006-01-02 15:04:05"
 	return time.Now().Format(template)

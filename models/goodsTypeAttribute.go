@@ -1,6 +1,7 @@
 package models
 
 
+//GoodsTypeAttribute 储存商品类型对应的文本框
 type GoodsTypeAttribute struct {
 	Id        int    `json:"id"`
 	CateId    int    `json:"cate_id"`

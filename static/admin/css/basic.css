@@ -135,3 +135,12 @@ input:focus, button:focus, select:focus, textarea:focus{
 .goods_content_btn{
     margin: 20px;
 }
+
+/* Web Uploader 按钮失效的解决方案 */
+#photoUploader div:nth-child(2){width:100%!important;height:100%!important;}
+
+#photoUploader{
+    width: 120px;
+    margin: 40px auto 20px auto;
+
+}
