@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"mimall/models"
 	"strconv"
@@ -15,6 +16,9 @@ type GoodsController struct {
 }
 
 func (c *GoodsController) Get() {
+	goods := []models.Goods{}
+	models.DB.Find(&goods)
+	c.Data["goodsList"] = goods
 	c.TplName = "admin/goods/index.html"
 }
 
@@ -150,7 +154,80 @@ func (c *GoodsController) DoAdd() {
 }
 func (c *GoodsController) Edit() {
 
-	c.Ctx.WriteString("修改")
+	// 1、获取商品数据
+	id, err1 := c.GetInt("id")
+	if err1 != nil {
+		c.Error("非法请求", "/goods")
+	}
+	goods := models.Goods{Id: id}
+	models.DB.Find(&goods)
+	c.Data["goods"] = goods
+
+	//2、获取商品分类
+	goodsCate := []models.GoodsCate{}
+	models.DB.Where("pid=?", 0).Preload("GoodsCateItem").Find(&goodsCate)
+	c.Data["goodsCateList"] = goodsCate
+
+	// 3、获取所有颜色 以及选中的颜色
+	goodsColorSlice := strings.Split(goods.GoodsColor, ",")
+	goodsColorMap := make(map[string]string)
+	for _, v := range goodsColorSlice {
+		goodsColorMap[v] = v
+	}
+	//获取颜色信息
+	goodsColor := []models.GoodsColor{}
+	models.DB.Find(&goodsColor)
+	for i := 0; i < len(goodsColor); i++ {
+		_, ok := goodsColorMap[strconv.Itoa(goodsColor[i].Id)]
+		if ok {
+			goodsColor[i].Checked = true
+		}
+	}
+	c.Data["goodsColor"] = goodsColor
+
+	//4、商品的图库信息
+	goodsImage := []models.GoodsImage{}
+	models.DB.Where("goods_id=?", goods.Id).Find(&goodsImage)
+	c.Data["goodsImage"] = goodsImage
+
+	// 5、获取商品类型
+	goodsType := []models.GoodsType{}
+	models.DB.Find(&goodsType)
+	c.Data["goodsType"] = goodsType
+	//6、获取规格信息
+	goodsAttr := []models.GoodsAttr{}
+	models.DB.Where("goods_id=?", goods.Id).Find(&goodsAttr)
+
+	fmt.Printf("%#v", goodsAttr)
+
+	var goodsAttrStr string
+	for _, v := range goodsAttr {
+		if v.AttributeType == 1 {
+			goodsAttrStr += fmt.Sprintf(`<li><span>%v: 　</span>  <input type="hidden" name="attr_id_list" value="%v" />   <input type="text" name="attr_value_list" value="%v" /></li>`, v.AttributeTitle, v.AttributeId, v.AttributeValue)
+		} else if v.AttributeType == 2 {
+			goodsAttrStr += fmt.Sprintf(`<li><span>%v: 　</span><input type="hidden" name="attr_id_list" value="%v" />  <textarea cols="50" rows="3" name="attr_value_list">%v</textarea></li>`, v.AttributeTitle, v.AttributeId, v.AttributeValue)
+		} else {
+
+			// 获取 attr_value  获取可选值列表
+			oneGoodsTypeAttribute := models.GoodsTypeAttribute{Id: v.AttributeId}
+			models.DB.Find(&oneGoodsTypeAttribute)
+			attrValueSlice := strings.Split(oneGoodsTypeAttribute.AttrValue, "\n")
+			goodsAttrStr += fmt.Sprintf(`<li><span>%v: 　</span>  <input type="hidden" name="attr_id_list" value="%v" /> `, v.AttributeTitle, v.AttributeId)
+			goodsAttrStr += fmt.Sprintf(`<select name="attr_value_list">`)
+			for j := 0; j < len(attrValueSlice); j++ {
+				if attrValueSlice[j] == v.AttributeValue {
+					goodsAttrStr += fmt.Sprintf(`<option value="%v" selected >%v</option>`, attrValueSlice[j], attrValueSlice[j])
+				} else {
+					goodsAttrStr += fmt.Sprintf(`<option value="%v">%v</option>`, attrValueSlice[j], attrValueSlice[j])
+				}
+			}
+			goodsAttrStr += fmt.Sprintf(`</select>`)
+			goodsAttrStr += fmt.Sprintf(`</li>`)
+		}
+	}
+
+	c.Data["goodsAttrStr"] = goodsAttrStr
+	c.TplName = "admin/goods/edit.html"
 }
 
 func (c *GoodsController) DoEdit() {
