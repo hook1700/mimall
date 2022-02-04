@@ -15,6 +15,8 @@ func init()  {
 func main() {
 	//注册模板函数
 	beego.AddFuncMap("unixToDate",models.UnixToDate)
+	beego.AddFuncMap("setting", models.GetSettingFromColumn)
+	beego.AddFuncMap("formatImg", models.FormatImg)
 
 	beego.BConfig.WebConfig.Session.SessionProvider = "redis"
 	beego.BConfig.WebConfig.Session.SessionProviderConfig = "127.0.0.1:6379"

@@ -1,13 +1,28 @@
 {{template "../public/page_header.html"}}
 
+<script type="text/javascript" src="/static/admin/js/jqPaginator.js"></script>
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <a href="/{{config "String" "adminPath" ""}}/goods/add" class="btn btn-primary">增加商品</a>
     </div>
     <div class="panel-body">
-        <!--
-        列表展示
-        -->
+        <form role="form" class="form-inline" method="get" action="/{{config "String" "adminPath" ""}}/goods">
+        <div class="form-group">
+            <label for="name">输入关键词</label>
+            <input type="text" class="form-control" value="{{.keyword}}" id="keyword" name="keyword" placeholder="请输入名称">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">开始搜索</button>
+        </div>
+        </form>
+    </div>
+    <!--
+    列表展示
+    -->
+    <div class="panel-body">
+
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -82,10 +97,28 @@
                 {{end}}
                 </tbody>
             </table>
+            <div id="pagination" class="pagination fr">
+
+            </div>
         </div>
     </div>
 </div>
+<script>
 
+    $(function(){
+        $('#pagination').jqPaginator({
+            totalPages: {{.totalPages}},
+        visiblePages: 10,
+            currentPage: {{.page}},
+        onPageChange: function (num, type) {
+            console.log(num,type)
+            if(type=="change"){
+                location.href="/{{config "String" "adminPath" ""}}/goods?page="+num+"&keyword={{.keyword}}";
+            }
+        }
+    });
+    })
+</script>
 
 </body>
 </html>

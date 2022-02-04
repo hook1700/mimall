@@ -12,6 +12,10 @@ ul{
 
     float: left;
 }
+.pic{
+    width: 80px;
+}
+
 
 .clear::after{
 
@@ -84,6 +88,15 @@ table .th{
     margin: 5px 0px;
     padding:5px 0px
 }
+.input-form li span{
+    display:inline-block;
+    width: 100px;
+
+}
+.input-form li input[type=text]{
+    width: 400px;
+}
+
 
 input[type=file]{
     display: inline !important;
@@ -142,5 +155,34 @@ input:focus, button:focus, select:focus, textarea:focus{
 #photoUploader{
     width: 120px;
     margin: 40px auto 20px auto;
+
+}
+/* 商品图库 */
+.goods_image_list {
+    border:1px solid #eee;
+
+}
+.goods_image_list li{
+    width:  120px;
+    float: left;
+    margin-right: 10px;
+    border-bottom: none;
+    position: relative;
+    padding: 5px;
+}
+
+.goods_image_list li .goods_image_delete{
+    width: 40px;
+    height: 40px;
+    background: url('../webuploader/images/x_alt.png') no-repeat center center;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+}
+
+
+.goods_image_list li .color_list{
+    margin-top:20px;
 
 }

@@ -91,8 +91,24 @@ func init() {
 			beego.NSRouter("/goods/doEdit", &admin.GoodsController{}, `post:DoEdit`),
 			beego.NSRouter("/goods/delete", &admin.GoodsController{}, `get:Delete`),
 			beego.NSRouter("/goods/doUpload", &admin.GoodsController{}, `post:DoUpload`),
+			beego.NSRouter("/goods/doUploadPhoto", &admin.GoodsController{}, `post:DoUploadPhoto`),
 			beego.NSRouter("/goods/getGoodsTypeAttribute", &admin.GoodsController{}, `get:GetGoodsTypeAttribute`),
+			beego.NSRouter("/goods/changeGoodsImageColor", &admin.GoodsController{}, `get:ChangeGoodsImageColor`),
+			beego.NSRouter("/goods/removeGoodsImage", &admin.GoodsController{}, `get:RemoveGoodsImage`),
 
+
+			//导航管理
+			beego.NSRouter("/nav", &admin.NavController{}),
+			beego.NSRouter("/nav/add", &admin.NavController{}, `get:Add`),
+			beego.NSRouter("/nav/edit", &admin.NavController{}, `get:Edit`),
+			beego.NSRouter("/nav/doAdd", &admin.NavController{}, `post:DoAdd`),
+			beego.NSRouter("/nav/doEdit", &admin.NavController{}, `post:DoEdit`),
+			beego.NSRouter("/nav/delete", &admin.NavController{}, `get:Delete`),
+
+
+			//系统设置
+			beego.NSRouter("/setting", &admin.SettingController{}),
+			beego.NSRouter("/setting/doEdit", &admin.SettingController{}, `post:DoEdit`),
 		)
 	//注册 namespace
 	beego.AddNamespace(ns)

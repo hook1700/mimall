@@ -30,7 +30,7 @@
                     </td>
                     <td>
                         {{if ne $value.FocusImg ""}}
-                        <img src="/{{$value.FocusImg}}" width="80"/>
+                        <img src="{{$value.FocusImg | formatImg}}" width="80" />
                         {{end}}
                     </td>
                     <td>{{$value.Link}}</td>
