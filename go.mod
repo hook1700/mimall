@@ -6,6 +6,7 @@ require (
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.0+incompatible
 	github.com/astaxie/beego v1.12.1
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
+	github.com/gomarkdown/markdown v0.0.0-20220114203417-14399d5448c4
 	github.com/hunterhug/go_image v1.0.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/lib/pq v1.7.0 // indirect

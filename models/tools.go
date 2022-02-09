@@ -3,6 +3,7 @@ package models
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"github.com/gomarkdown/markdown"
 	"path"
 	"reflect"
 	"strconv"
@@ -110,3 +111,20 @@ func FormatImg(picName string) string {
 	}
 
 }
+
+/*
+# 二级标题
+
+<h2>二级标题<h2>
+*/
+func FormatAttr(str string) string {
+	md := []byte(str)
+	htmlByte := markdown.ToHTML(md, nil, nil)
+	return string(htmlByte)
+}
+
+//乘法的函数
+func Mul(price float64, num int) float64 {
+	return price * float64(num)
+}
+

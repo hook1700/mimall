@@ -17,6 +17,9 @@ func main() {
 	beego.AddFuncMap("unixToDate",models.UnixToDate)
 	beego.AddFuncMap("setting", models.GetSettingFromColumn)
 	beego.AddFuncMap("formatImg", models.FormatImg)
+	beego.AddFuncMap("formatAttr", models.FormatAttr)
+	beego.AddFuncMap("mul", models.Mul)
+
 
 	beego.BConfig.WebConfig.Session.SessionProvider = "redis"
 	beego.BConfig.WebConfig.Session.SessionProviderConfig = "127.0.0.1:6379"

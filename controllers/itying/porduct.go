@@ -114,6 +114,55 @@ func (c *ProductController) ProductItem() {
 	models.DB.Where("goods_id=?", goods.Id).Find(&goodsAttr)
 	c.Data["goodsAttr"] = goodsAttr
 
+	//项目没有使用到这部分
+	//8、获取商品其他规格参数
+	/*
+			颜色:红色,白色,黄色 |  尺寸:41,42,43
+
+			[
+
+			      { cate: "颜色", list: ["红色", "白色", "黄色"] },
+			      { cate: "尺寸", list: ["41", "42", "43"] }
+
+			 ]
+
+			 颜色:红色,白色,黄色
+				tempSlice[0]=颜色
+				tempSlice[1]=红色,白色,黄色
+
+				goodsItemAttr[0].Cate=颜色
+				goodsItemAttr[0].List=切片
+
+			 尺寸:41,42,43
+			 	tempSlice[0]=尺寸
+				tempSlice[1]=41,42,43
+
+		var goodsItemAttr []models.GoodsItemAttr
+		goodsAttrStr := "颜色:红色,白色,黄色|尺寸:41,42,43|套餐:套餐1,套餐2"
+		goodsAttrStr = strings.ReplaceAll(goodsAttrStr, "：", ":")
+		goodsAttrStr = strings.ReplaceAll(goodsAttrStr, "，", ",")
+
+		if strings.Contains(goodsAttrStr, ":") {
+			goodsAttrSlice := strings.Split(goodsAttrStr, "|")
+			//分配存储空间
+			goodsItemAttr = make([]models.GoodsItemAttr, len(goodsAttrSlice))
+			for i := 0; i < len(goodsAttrSlice); i++ {
+				tempSlice := strings.Split(goodsAttrSlice[i], ":")
+				//分类
+				goodsItemAttr[i].Cate = tempSlice[0]
+				//列表
+				listSlice := strings.Split(tempSlice[1], ",")
+				// goodsItemAttr[i].List = append(goodsItemAttr[i].List, listSlice...)
+				goodsItemAttr[i].List = listSlice
+
+			}
+		}
+
+		c.Data["json"] = goodsItemAttr
+		c.ServeJSON()
+
+	*/
+
 	c.TplName = "itying/product/item.html"
 }
 
