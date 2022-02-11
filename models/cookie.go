@@ -27,5 +27,11 @@ func (c cookie) Get(ctx *context.Context, key string, obj interface{}) bool {
 
 }
 
+func (c cookie) Remove(ctx *context.Context, key string, value interface{}) {
+	bytes, _ := json.Marshal(value)
+	ctx.SetSecureCookie(beego.AppConfig.String("secureCookie"), key, string(bytes), -1)
+
+}
+
 //实例化结构体
 var Cookie = &cookie{}

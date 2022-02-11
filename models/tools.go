@@ -4,6 +4,8 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"github.com/gomarkdown/markdown"
+	"io/ioutil"
+	"math/rand"
 	"path"
 	"reflect"
 	"strconv"
@@ -128,3 +130,26 @@ func Mul(price float64, num int) float64 {
 	return price * float64(num)
 }
 
+//封装一个生产随机数的方法
+func GetRandomNum() string {
+	var str string
+	for i := 0; i < 4; i++ {
+		current := rand.Intn(10) //0-9   "math/rand"
+		str += strconv.Itoa(current)
+	}
+	return str
+}
+
+func SendMsg(str string) {
+
+	//1、正式环境
+	// clnt := ypclnt.New("62c24eee15fxxxxxxxxxxxxxxxe0beca9e0a") //apikey https://www.yunpian.com/官网获取
+	// param := ypclnt.NewParam(2061690)                          //模板id
+	// param[ypclnt.MOBILE] = "15029745801"
+	// param[ypclnt.TEXT] = "【IT营】您的验证码是888897"
+	// r := clnt.Sms().SingleSend(param)
+	// fmt.Println(r)
+
+	//2、测试阶段保存短信到文件里面
+	ioutil.WriteFile("code.txt", []byte(str), 06666)
+}

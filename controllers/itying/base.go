@@ -1,6 +1,7 @@
 package itying
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/jinzhu/gorm"
 	"mimall/models"
@@ -52,5 +53,35 @@ func (c *BaseController) SuperInit() {
 		}
 		c.Data["middleNavList"] = middleNav
 		models.CacheDb.Set("middleNav", middleNav)
+	}
+
+	//判断用户是否登录
+
+	user := models.User{}
+	models.Cookie.Get(c.Ctx, "userinfo", &user)
+	if len(user.Phone) == 11 {
+		str := fmt.Sprintf(`<ul>
+			<li class="userinfo">
+				<a href="#">%v</a>		
+
+				<i class="i"></i>
+				<ol>
+					<li><a href="#">个人中心</a></li>
+
+					<li><a href="#">喜欢</a></li>
+
+					<li><a href="/pass/loginOut">退出登录</a></li>
+				</ol>
+			
+			</li>
+		</ul> `, user.Phone)
+		c.Data["userinfo"] = str
+	} else {
+		str := fmt.Sprintf(`<ul>
+			<li><a href="/pass/login" target="_blank">登录</a></li>
+			<li>|</li>
+			<li><a href="/pass/registerStep1" target="_blank" >注册</a></li>							
+		</ul>`)
+		c.Data["userinfo"] = str
 	}
 }

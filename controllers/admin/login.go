@@ -1,21 +1,19 @@
 package admin
 
 import (
-	"github.com/astaxie/beego/cache"
-	"github.com/astaxie/beego/utils/captcha"
 	"mimall/models"
 	"strings"
 )
 
-var cpt *captcha.Captcha
-
-func init() {
-	store := cache.NewMemoryCache()
-	cpt = captcha.NewWithFilter("/captcha/", store)
-	cpt.ChallengeNums = 4
-	cpt.StdWidth = 100
-	cpt.StdHeight = 40
-}
+//var cpt *captcha.Captcha
+//
+//func init() {
+//	store := cache.NewMemoryCache()
+//	cpt = captcha.NewWithFilter("/captcha/", store)
+//	cpt.ChallengeNums = 4
+//	cpt.StdWidth = 100
+//	cpt.StdHeight = 40
+//}
 
 type LoginController struct {
 	BaseController
@@ -30,7 +28,7 @@ func (c *LoginController) Get() {
 func (c *LoginController) DoLogin() {
 
 	//1、验证用户输入的验证码是否正确
-	var flag = cpt.VerifyReq(c.Ctx.Request)
+	var flag = models.Cpt.VerifyReq(c.Ctx.Request)
 	if flag {
 		//2、获取表单传过来的用户名和密码
 		username := strings.Trim(c.GetString("username"), " ")

@@ -20,4 +20,18 @@ func init()  {
 	beego.Router("/cart/changeAllCart", &itying.CartController{}, "get:ChangeAllCart")
 	beego.Router("/cart/delCart", &itying.CartController{}, "get:DelCart")
 
+	beego.Router("/pass/login", &itying.PassController{}, "get:Login")
+	beego.Router("/pass/doLogin", &itying.PassController{}, "post:DoLogin")
+	beego.Router("/pass/loginOut", &itying.PassController{}, "get:LoginOut")
+
+	beego.Router("/pass/registerStep1", &itying.PassController{}, "get:RegisterStep1")
+	beego.Router("/pass/registerStep2", &itying.PassController{}, "get:RegisterStep2")
+	beego.Router("/pass/registerStep3", &itying.PassController{}, "get:RegisterStep3")
+
+	beego.Router("/pass/sendCode", &itying.PassController{}, "get:SendCode")
+	beego.Router("/pass/validateSmsCode", &itying.PassController{}, "get:ValidateSmsCode")
+	beego.Router("/pass/doRegister", &itying.PassController{}, "post:DoRegister")
+
+	beego.Router("/user", &itying.UserController{})
+
 }
