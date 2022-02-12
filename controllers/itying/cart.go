@@ -1,30 +1,34 @@
 package itying
 
 import (
-	"github.com/astaxie/beego"
 	"mimall/models"
 	"strconv"
 )
 
 type CartController struct {
-	beego.Controller
+	BaseController
 }
 
 //Get 存在cookie不是存在数据库
 func (c *CartController) Get() {
+
+
+	c.SuperInit()
+
 	cartList := []models.Cart{}
 	models.Cookie.Get(c.Ctx, "cartList", &cartList)
 
 	var allPrice float64
+	//执行计算总价
 	for i := 0; i < len(cartList); i++ {
 		if cartList[i].Checked {
 			allPrice += cartList[i].Price * float64(cartList[i].Num)
 		}
 	}
-	c.Data["json"] = cartList
-	//c.ServeJSON()
+
 	c.Data["cartList"] = cartList
 	c.Data["allPrice"] = allPrice
+
 	c.TplName = "itying/cart/cart.html"
 }
 
@@ -70,7 +74,6 @@ func (c *CartController) AddCart() {
 		c.Ctx.Redirect(302, "/item_"+strconv.Itoa(goods.Id)+".html")
 		return
 	}
-
 	// 1、获取增加购物车的数据  （把哪一个商品加入到购物车）
 
 	currentData := models.Cart{
@@ -109,9 +112,10 @@ func (c *CartController) AddCart() {
 	}
 
 	c.Data["goods"] = goods
+
+	//这里也要superInit 一下 addcart_success 这边也有用到
+	c.SuperInit()
 	c.TplName = "itying/cart/addcart_success.html"
-
-
 }
 
 func (c *CartController) DecCart() {

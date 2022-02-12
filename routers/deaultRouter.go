@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"mimall/controllers/itying"
+	"mimall/middleware"
 )
 
 func init()  {
@@ -31,6 +32,22 @@ func init()  {
 	beego.Router("/pass/sendCode", &itying.PassController{}, "get:SendCode")
 	beego.Router("/pass/validateSmsCode", &itying.PassController{}, "get:ValidateSmsCode")
 	beego.Router("/pass/doRegister", &itying.PassController{}, "post:DoRegister")
+
+	//配置中间件判断权限
+	//配置中间件判断权限
+	beego.InsertFilter("/buy/*", beego.BeforeRouter, middleware.DefaultAuth)
+	beego.Router("/buy/checkout", &itying.BuyController{}, "get:Checkout")
+	beego.Router("/buy/doOrder", &itying.BuyController{}, "post:DoOrder")
+	beego.Router("/buy/confirm", &itying.BuyController{}, "get:Confirm")
+
+	//配置中间件判断权限
+	beego.InsertFilter("/address/*", beego.BeforeRouter, middleware.DefaultAuth)
+	beego.Router("/address/addAddress", &itying.AddressController{}, "post:AddAddress")
+	beego.Router("/address/getOneAddressList", &itying.AddressController{}, "get:GetOneAddressList")
+
+	beego.Router("/address/doEditAddressList", &itying.AddressController{}, "post:DoEditAddress")
+
+	beego.Router("/address/changeDefaultAddress", &itying.AddressController{}, "get:ChangeDefaultAddress")
 
 	beego.Router("/user", &itying.UserController{})
 

@@ -55,8 +55,6 @@ func (c *BaseController) SuperInit() {
 		models.CacheDb.Set("middleNav", middleNav)
 	}
 
-	//判断用户是否登录
-
 	user := models.User{}
 	models.Cookie.Get(c.Ctx, "userinfo", &user)
 	if len(user.Phone) == 11 {

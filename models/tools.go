@@ -60,6 +60,11 @@ func GetDay() string {
 }
 
 
+func GetOrderId() string {
+	template := "200601021504"
+	return time.Now().Format(template) + GetRandomNum()
+}
+
 // GetSettingFromColumn("SiteTitle")
 func GetSettingFromColumn(columnName string) string {
 

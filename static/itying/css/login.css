@@ -165,3 +165,7 @@ footer .copyright:first-of-type{margin-top: 10px;}
     color: red;
     padding: 0px 0px 15px 0px
 }
+
+.captcha img{
+    background: #fff;
+}
