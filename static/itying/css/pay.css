@@ -146,7 +146,7 @@
 
 .order-detail .label {
 	float: left;
-	width: 85px
+	width: 85px;
 }
 
 .order-detail .content {
@@ -699,4 +699,14 @@
 	border-width: 0 8px 7px;
 	border-color: transparent transparent #fff;
 	z-index: 2
+}
+
+/*确认支付页面*/
+
+.lcode{
+	padding-right: 80px;
+	width: 320px;
+}
+.rphone{
+	width: 240px;
 }

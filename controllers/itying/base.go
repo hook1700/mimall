@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/jinzhu/gorm"
 	"mimall/models"
+	"net/url"
 	"strings"
 )
 
@@ -64,7 +65,7 @@ func (c *BaseController) SuperInit() {
 
 				<i class="i"></i>
 				<ol>
-					<li><a href="#">个人中心</a></li>
+					<li><a href="/user">个人中心</a></li>
 
 					<li><a href="#">喜欢</a></li>
 
@@ -82,4 +83,8 @@ func (c *BaseController) SuperInit() {
 		</ul>`)
 		c.Data["userinfo"] = str
 	}
+
+	urlPath, _ := url.Parse(c.Ctx.Request.URL.String())
+	c.Data["pathname"] = urlPath.Path
+
 }

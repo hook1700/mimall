@@ -10,9 +10,11 @@ require (
 	github.com/hunterhug/go_image v1.0.1
 	github.com/jinzhu/gorm v1.9.16
 	github.com/lib/pq v1.7.0 // indirect
+	github.com/objcoding/wxpay v1.0.6
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/shiena/ansicolor v0.0.0-20200904210342-c7312218db18 // indirect
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
+	github.com/smartwalle/alipay/v3 v3.1.6
 	github.com/smartystreets/goconvey v1.6.4
 	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11 // indirect

@@ -1,7 +1,7 @@
 /*样式初始化*/
 *{margin:0;padding: 0;}
 a{text-decoration: none;color: #000;}
-img {border: 0; vertical-align:middle;}
+img {border: 0; vertical-align:middle;} 
 ul li{list-style: none;}
 body,h1,h2,h3,h4,h5,h6{font: 12px 微软雅黑,Times New Roman;}
 body.login_page{background: rgb(20,33,42)  }
@@ -80,7 +80,7 @@ input:focus{border: 2px solid orange;}
 .xian{height: 2px;background: #ff6700;margin: 8px auto;}
 
 .regist_main{
-
+    
     padding:10px 0;
     width: 402px;
     margin: 0 auto;
@@ -94,43 +94,43 @@ input:focus{border: 2px solid orange;}
 
 
 .regist_main .form_input{
-
-    width: 400px;
+    
+    width: 400px;    
     height: 30px;
-    line-height: 30px;
-    border:1px solid #ccc;
-    padding:10px 0px;
+    line-height: 30px;    
+    border:1px solid #ccc;    
+    padding:10px 0px; 
     margin-bottom: 20px;
     text-indent: 5px;
 }
 
 .regist_main .yzm input{
-
-    width: 260px;
+    
+    width: 260px;    
     height: 30px;
-    line-height: 30px;
-    border:1px solid #ccc;
-    padding:10px 0px;
+    line-height: 30px;    
+    border:1px solid #ccc;    
+    padding:10px 0px; 
     margin-bottom: 20px;
     text-indent: 5px;
 }
 
 .regist_main .yzm button{
 
-    width: 120px;
+    width: 120px;    
     height: 50px;
-    line-height: 50px;
-    border:1px solid #ccc;
+    line-height: 50px;    
+    border:1px solid #ccc;      
     text-indent: 5px;
 }
 
 .regist .regist_center .submit{
-
-    border:none;
+    
+    border:none;    
     width: 100%;
-    height: 45px;
+    height: 45px;   
     background: #ff6700;
-    color: #fff;
+    color: #fff; 
     font-size: 22px;
     font-weight: bold;
     letter-spacing: 8px;
@@ -140,11 +140,11 @@ input:focus{border: 2px solid orange;}
 
 
 .regist .regist_center .return{
-
-    border:1px solid #eee;
+    
+    border:1px solid #eee;    
     width: 100%;
-    height: 45px;
-    color: #999;
+    height: 45px;      
+    color: #999; 
     font-size: 22px;
     font-weight: bold;
     letter-spacing: 8px;

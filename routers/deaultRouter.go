@@ -34,21 +34,30 @@ func init()  {
 	beego.Router("/pass/doRegister", &itying.PassController{}, "post:DoRegister")
 
 	//配置中间件判断权限
-	//配置中间件判断权限
 	beego.InsertFilter("/buy/*", beego.BeforeRouter, middleware.DefaultAuth)
 	beego.Router("/buy/checkout", &itying.BuyController{}, "get:Checkout")
 	beego.Router("/buy/doOrder", &itying.BuyController{}, "post:DoOrder")
 	beego.Router("/buy/confirm", &itying.BuyController{}, "get:Confirm")
+	beego.Router("/buy/orderPayStatus", &itying.BuyController{}, "get:OrderPayStatus")
+
+	//支付宝支付
+	beego.Router("/alipay", &itying.PayController{}, "get:Alipay")
+	beego.Router("/alipayNotify", &itying.PayController{}, "post:AlipayNotify")
+	beego.Router("/alipayReturn", &itying.PayController{}, "get:AlipayReturn")
+	//微信支付
+	beego.Router("/wxpay", &itying.PayController{}, "get:WxPay")
+	beego.Router("/wxpay/notify", &itying.PayController{}, "post:WxPayNotify")
 
 	//配置中间件判断权限
 	beego.InsertFilter("/address/*", beego.BeforeRouter, middleware.DefaultAuth)
 	beego.Router("/address/addAddress", &itying.AddressController{}, "post:AddAddress")
 	beego.Router("/address/getOneAddressList", &itying.AddressController{}, "get:GetOneAddressList")
-
 	beego.Router("/address/doEditAddressList", &itying.AddressController{}, "post:DoEditAddress")
-
 	beego.Router("/address/changeDefaultAddress", &itying.AddressController{}, "get:ChangeDefaultAddress")
-
+	//配置中间件判断权限
+	beego.InsertFilter("/user/*", beego.BeforeRouter, middleware.DefaultAuth)
 	beego.Router("/user", &itying.UserController{})
+	beego.Router("/user/order", &itying.UserController{}, "get:OrderList")
+	beego.Router("/user/orderinfo", &itying.UserController{}, "get:OrderInfo")
 
 }

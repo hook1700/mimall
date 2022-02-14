@@ -169,3 +169,49 @@ func (c *BuyController) Confirm() {
 
 	c.TplName = "itying/buy/confirm.html"
 }
+
+//获取订单状态
+func (c *BuyController) OrderPayStatus() {
+	//1、获取订单号
+	id, err := c.GetInt("id")
+	if err != nil {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"message": "传入参数错误",
+		}
+		c.ServeJSON()
+		return
+	}
+	//2、查询订单
+	order := models.Order{}
+	models.DB.Where("id=?", id).Find(&order)
+
+	user := models.User{}
+	models.Cookie.Get(c.Ctx, "userinfo", &user)
+	//3、判断当前数据是否合法
+	if user.Id != order.Uid {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"message": "传入参数错误",
+		}
+		c.ServeJSON()
+		return
+	}
+
+	//4、判断订单的支付状态
+	if order.PayStatus == 1 && order.OrderStatus == 1 {
+		c.Data["json"] = map[string]interface{}{
+			"success": true,
+			"message": "已支付",
+		}
+		c.ServeJSON()
+
+	} else {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"message": "未支付",
+		}
+		c.ServeJSON()
+	}
+
+}
