@@ -73,5 +73,14 @@ func (c *UserController) OrderList() {
 }
 func (c *UserController) OrderInfo() {
 	c.SuperInit()
+	id, _ := c.GetInt("id")
+	user := models.User{}
+	models.Cookie.Get(c.Ctx, "userinfo", &user)
+	order := models.Order{}
+	models.DB.Where("id=? And uid=?", id, user.Id).Preload("OrderItem").Find(&order)
+	c.Data["order"] = order
+	if order.OrderId == "" {
+		c.Redirect("/", 302)
+	}
 	c.TplName = "itying/user/order_info.html"
 }

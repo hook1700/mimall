@@ -19,7 +19,7 @@
 					<div class="uc-content-box order-view-box">
 						<div class="box-hd">
 							<div class="more clearfix">
-								<h2 class="subtitle">订单号：1160529723001145                        <span class="tag tag-subsidy"></span>
+								<h2 class="subtitle">订单号：{{.order.OrderId}}                        <span class="tag tag-subsidy"></span>
 								</h2>
 								<div class="actions">
 									<a title="申请售后" href="http://service.order.mi.com/apply/order/id/1160529723001145" class="btn btn-small btn-line-gray" data-stat-id="12e905752ea93db8" onclick="_msq.push(['trackEvent', '4a854694de3347de-12e905752ea93db8', 'http://service.order.mi.com/apply/order/id/1160529723001145', 'pcpid', '']);">申请售后</a>
@@ -32,29 +32,44 @@
 									<div class="order-summary">
 
 										<div class="order-status">
-											已收货 </div>
+											{{if eq .order.OrderStatus 0}}
+											已下单 未支付
+											{{else if eq .order.OrderStatus 1}}
+											已付款
+											{{else if eq .order.OrderStatus 2}}
+											已配货
+											{{else if eq .order.OrderStatus 3}}
+											已发货
+											{{else if eq .order.OrderStatus 4}}
+											交易成功
+											{{else if eq .order.OrderStatus 5}}
+											已退货
+											{{else if eq .order.OrderStatus 6}}
+											无效 已取消
+											{{end}}
+										</div>
 
 										<div class="order-progress">
 											<ol class="progress-list clearfix progress-list-5">
-												<li class="step step-first step-done">
+												<li class="step step-first {{if ge .order.OrderStatus 0}}step-done{{end}}">
 													<div class="progress"><span class="text">下单</span></div>
-													<div class="info">2016年05月29日 18:45</div>
+													<div class="info">2020年05月29日 18:45</div>
 												</li>
-												<li class="step step-done">
+												<li class="step {{if ge .order.OrderStatus 1}}step-done{{end}}">
 													<div class="progress"><span class="text">付款</span></div>
-													<div class="info">2016年05月29日 18:45</div>
+													<div class="info">2020年05月29日 18:45</div>
 												</li>
-												<li class="step step-done">
+												<li class="step {{if ge .order.OrderStatus 2}}step-done{{end}}">
 													<div class="progress"><span class="text">配货</span></div>
-													<div class="info">2016年05月29日 18:45</div>
+													<div class="info">2020年05月29日 18:45</div>
 												</li>
-												<li class="step step-done">
+												<li class="step {{if ge .order.OrderStatus 3}}step-done{{end}}">
 													<div class="progress"><span class="text">出库</span></div>
-													<div class="info">2016年05月30日 17:50</div>
+													<div class="info">2020年05月30日 17:50</div>
 												</li>
-												<li class="step step-active step-last">
+												<li class="step {{if ge .order.OrderStatus 4}}step-done{{end}} step-active step-last">
 													<div class="progress"><span class="text">交易成功</span></div>
-													<div class="info">2016年06月04日 13:58</div>
+													<div class="info">2020年06月04日 13:58</div>
 												</li>
 											</ol>
 										</div>
@@ -72,27 +87,27 @@
 
 									<table class="order-items-table">
 										<tbody>
+										{{range $k,$v := .order.OrderItem}}
 										<tr>
 											<td class="col col-thumb">
 												<div class="figure figure-thumb">
-													<a target="_blank" href="//item.mi.com/1152800035.html" data-stat-id="4fcf11746c0ff4cf" onclick="_msq.push(['trackEvent', '4a854694de3347de-4fcf11746c0ff4cf', '//item.mi.com/1152800035.html', 'pcpid', '']);">
-														<img src="//i1.mifile.cn/a1/T19OV_BgKT1RXrhCrK!80x80.jpg" width="80" height="80" alt="">
-													</a>
+													<img src="/{{$v.ProductImg}}" width="60px" />
 												</div>
 											</td>
 											<td class="col col-name">
 												<p class="name">
-													<a target="_blank" href="//item.mi.com/1152800035.html" data-stat-id="48ddec30ff490c01" onclick="_msq.push(['trackEvent', '4a854694de3347de-48ddec30ff490c01', '//item.mi.com/1152800035.html', 'pcpid', '']);">小米水质TDS检测笔 白色</a>
+													<a href="#">{{$v.ProductTitle}}</a>
 
 												</p>
 											</td>
 											<td class="col col-price">
-												<p class="price">39元 × 1</p>
+												<p class="price">{{$v.ProductPrice}}元 × {{$v.ProductNum}}</p>
 											</td>
 											<td class="col col-actions">
 
 											</td>
 										</tr>
+										{{end}}
 
 										</tbody>
 									</table>
@@ -107,15 +122,15 @@
 										<tbody>
 										<tr>
 											<th>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</th>
-											<td>xxxx</td>
+											<td>{{.order.Name}}</td>
 										</tr>
 										<tr>
 											<th>联系电话：</th>
-											<td>150****5801</td>
+											<td>{{.order.Phone}}</td>
 										</tr>
 										<tr>
 											<th>收货地址：</th>
-											<td>陕西 延安市 宝塔区 蟠龙镇 枣园村</td>
+											<td>{{.order.Address}}</td>
 										</tr>
 										</tbody>
 									</table>
@@ -164,17 +179,10 @@
 									<table class="total-table">
 
 										<tbody>
-										<tr>
-											<th>商品总价：</th>
-											<td><span class="num">39.00</span>元</td>
-										</tr>
-										<tr>
-											<th>运费：</th>
-											<td><span class="num">10</span>元</td>
-										</tr>
+
 										<tr>
 											<th class="total">实付金额：</th>
-											<td class="total"><span class="num">49.00</span>元</td>
+											<td class="total"><span class="num">{{.order.AllPrice}}</span>元</td>
 										</tr>
 
 										</tbody>
