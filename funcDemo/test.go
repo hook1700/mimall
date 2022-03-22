@@ -6,21 +6,11 @@ import (
 	"os"
 )
 
-/*
-yourBucketName  mimall1700
 
-yourEndpoint   oss-cn-shenzhen.aliyuncs.com
-
-
-yourAccessKeyId  appkey   LTAI5tPje96ESrzLAC4qQMAm
-
-yourAccessKeySecret appSecret  klXH2hbSLVWYpahIpOqxArXn0UkHnD
-
-*/
 
 func main() {
 	// 创建OSSClient实例。
-	client, err := oss.New("oss-cn-shenzhen.aliyuncs.com", "LTAI5tPje96ESrzLAC4qQMAm", "klXH2hbSLVWYpahIpOqxArXn0UkHnD")
+	client, err := oss.New("oss-cn-shenzhen.aliyuncs.com", "xxxxxxxxxx", "xxxxxxxxxxxxxxxxx")
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(-1)
